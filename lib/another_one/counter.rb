@@ -1,11 +1,14 @@
+require 'forwardable'
 module AnotherOne
   class Counter
-    def initialize
-      initialize_backend
-    end
+    extend Forwardable
 
-    def increment_by(key, amount)
-      @keys[key] += amount
+    def_delegator :@backend, :increment_by, :increment_by
+    def_delegator :@backend, :count_for, :count_for
+
+    def initialize(backend: nil)
+      @backend = backend
+      initialize_backend
     end
 
     def increment(key)
@@ -16,13 +19,9 @@ module AnotherOne
       increment_by(key, -1)
     end
 
-    def count_for(key)
-      @keys[key]
-    end
-
     private
     def initialize_backend
-      @keys = Hash.new(0)
+      @backend ||= AnotherOne::Backends::Hash.new
     end
   end
 end
