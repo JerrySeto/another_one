@@ -2,3 +2,5 @@
 
 module AnotherOne
 end
+
+require_relative './another_one/counter'

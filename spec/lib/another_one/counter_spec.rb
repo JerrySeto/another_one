@@ -1,4 +1,4 @@
-require './lib/another_one/counter'
+require './lib/another_one'
 
 RSpec.describe AnotherOne::Counter do
   subject { described_class.new }
